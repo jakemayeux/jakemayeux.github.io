@@ -141,7 +141,7 @@ function drawDemo(cvsID){
         alreadyRendered = false;
       }else if(!alreadyRendered){
         g.renderFrame(grp);
-        alreadyRendered = true;
+        //alreadyRendered = true;
       }
       mX = mouseX;
     }
