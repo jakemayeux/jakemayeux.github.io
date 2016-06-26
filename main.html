@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html>
+  <head>
+    <link rel='stylesheet' href='style.css'>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
+    <script src=jquery.bxslider.min.js></script>
+    <link href=jquery.bxslider.css rel=stylesheet>
+    <script async src='cango3d.js'></script>
+    <script src='gcode.js'></script>
+    <script src='main.js'></script>
+  </head>
+
+  <body>
+    <div id=nav>
+      <h2>Jake Mayeux</h2>
+      <div id=home class=selected>Home</div>
+      <div id=hobby>Hobbies & Projects</div>
+      <div id=website>Website Design Services</div>
+      <div id=contact>Contact</div>
+    </div>
+
+    <div class=content id=home2>
+      <h1>Welcome to my site.</h1>
+      <br>
+      <h3>Site Overview</h3>
+      <p>
+        If you would like a custom built website for your startup or small business please visit the <span id=site-link>Website Design Services</span> tab
+      </p>
+
+      <p>
+        Take a look at <span id=hobby-link>Hobbies & Projects</span> for a showcase of some of my notable creations
+      </p>
+
+      <h3>About Me</h3>
+      <p>
+        I am a recent graduate of Cincinnate Country Day School. I will be attending Northeastern in the Fall.
+      </p>
+    </div>
+
+    <div class=content id=hobby2>
+      <h2>CNC Mill</h2>
+      <ul class=bxslider>
+        <li><img title='The finished sketchup model' src=img/cnc1.png></li>
+        <li><img src=img/cnc2.jpg></li>
+        <li><img src=img/cnc3.jpg></li>
+        <li><img src=img/cnc4.jpg></li>
+        <li><img src=img/cnc5.jpg></li>
+        <li><img src=img/cnc6.jpg></li>
+        <li><img src=img/cnc7.jpg></li>
+      </ul>
+      <p>
+        I design this CNC completely from scratch. I began by creating a model in sketchup and prototyping parts with a 3D printer. Once I had settled on the design, I printed the plastic parts and ordered all the hardware online. I used a 3D printer's controller board and software since I was already familiar with them. Once I had everything assembled I had to calibrate it and then test run it until I considered it to be in a functional state.
+      </p>
+
+      <h2>GCode Visualizer</h2>
+      <button id="startVis">Start The Visualizer</button>
+      <canvas id="canvasID" width="500" height="500"></canvas>
+    </div>
+
+    <div class=content id=website2>
+      <h1><i>Fast. Responsive. Minimal.</i></h1>
+      <p>fwoia g wiogr ggaksg er wg</p>
+    </div>
+
+  </body>
+</html>

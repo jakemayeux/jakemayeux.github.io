@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
+<style>
+html, body{
+  height: 100%;
+}
+body{
+  margin: auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#div{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  -webkit-user-select: none;
+}
+div{
+  font-family: 'Share Tech Mono';
+  font-size: 24px;
+  -webkit-font-smoothing : none;
+}
+</style>
+</head>
+<body>
+<div>
+<div id=div><div id=hi></div><div id=score>0</div></div>
+<canvas id='canvas'></div>
+<script>
+  canvas = document.getElementById('canvas');
+  ctx = canvas.getContext('2d');
+  scoreBox = document.getElementById('score');
+  hiScoreBox = document.getElementById('hi');
+  scoreBox.innetHTML = '0';
+  var addren = true;
+  var slowPer = .3;
+  var speed = 120;
+  var spacing = 3;
+  var size = 20;
+  var width = 15;
+  var height = 15;
+  var dir = {x:1,y:0};
+  var qeue = new Array();
+  var qlen = 2;
+  var dot = {x:-1, y:-1};
+  var head = {x:1, y:1};
+  var length = 5;
+  var snake = makeSnake(1,1,length);
+  var score = 0;
+  var run = setInterval(update, speed);
+  var hiScore = localStorage.getItem('hiScore');
+  hiScoreBox.innerHTML = hiScore;
+
+  function makeSnake(x,y,len){
+    var arr = new Array();
+    for(var i = 0; i < len; i++){
+      arr.push({x:x-i,y:y});
+    }
+    return arr;
+  }
+
+  function update(){
+    if(dot.x == -1){
+      while(snake.some(checkDot)){
+        dot.x = Math.ceil(Math.random()*(width-1));
+        dot.y = Math.ceil(Math.random()*(height-1));
+      }
+    }
+
+    head = {x:snake[0].x, y:snake[0].y};
+    if(qeue.length > 0){
+      dir = qeue.shift();
+    }
+    head.x += dir.x;
+    head.y += dir.y;
+    if(head.x == dot.x && head.y == dot.y){
+      dot.x = -1;
+      length++;
+      score += 10;
+      scoreBox.innerHTML = score;
+    }else{
+      snake.pop();
+    }
+    snake.unshift(head);
+    if(checkDead(head)){
+      // ctx.fillRect(0, 0, width*size, height*size);
+      // ctx.font="50px Georgia";
+      // ctx.textAlign='center';
+      // ctx.textBaseline='middle';
+      // ctx.fillStyle = '#3dbe58';
+      // ctx.fillText('DEAD', width*size/2, height*size/2);
+      draw('#991818');
+      clearInterval(run);
+      return;
+    }
+
+    next = {x:head.x+dir.x, y:head.y+dir.y};
+
+    if(checkDead(next, true) && addren){
+      clearInterval(run);
+      run = setInterval(asdf, speed);
+    }
+
+    draw();
+
+    if(hiScore == null){
+      localStorage.setItem('hiScore', 0);
+      hiScore = 0;
+    }
+
+    if(score > hiScore){
+      hiScore = score;
+      hiScoreBox.innerHTML = hiScore;
+      scoreBox.innerHTML = score;
+      localStorage.setItem('hiScore', score);
+    }
+  }
+
+  function asdf(){
+    clearInterval(run);
+    run = setInterval(lastChance, 1);
+  }
+
+  var timer = 0;
+  function lastChance(){
+    if(qeue.length > 0){
+      dir = qeue.shift();
+      qeue.unshift(dir);
+    }
+    next = {x:head.x+dir.x, y:head.y+dir.y};
+    if(!checkDead(next) && timer < speed * slowPer){
+      clearInterval(run);
+      run = setInterval(update, speed);
+      update();
+      timer = 0;
+    }else if (timer >= speed * slowPer){
+      clearInterval(run);
+      update();
+      // run = setInterval(update, speed);
+    }
+    timer++;
+  }
+
+  function draw(color){
+    canvas.width = width*size;
+    canvas.height = height*size;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    console.log(color);
+    if(typeof(color) != 'undefined'){
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+    }else{
+      ctx.strokeStyle = 'black';
+      ctx.fillStyle = 'black';
+    }
+    ctx.lineCap = 'square';
+
+    ctx.lineWidth = (size - spacing*2);
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(width*size, 0);
+    ctx.lineTo(width*size, height*size);
+    ctx.lineTo(0, height*size);
+    ctx.lineTo(0,0);
+    ctx.stroke();
+
+    ctx.lineWidth = size - spacing*2;
+    ctx.beginPath();
+    ctx.moveTo(snake[0].x*size, snake[0].y*size);
+    for(i in snake){
+      ctx.lineTo(snake[i].x*size, snake[i].y*size);
+    }
+    ctx.stroke();
+
+    // ctx.beginPath();
+    ctx.fillRect(dot.x*size - size/2 + spacing, dot.y*size - size/2 + spacing, size - spacing*2, size - spacing*2);
+    // ctx.fill();
+    // ctx.fill();
+    // ctx.fill();
+    // ctx.fill();
+  }
+
+  function checkDot(snek){
+    return (snek.x == dot.x && snek.y == dot.y) || dot.x == -1;
+  }
+
+  var yn = false;
+  function checkDead(a, b){
+    if(a.x < 1 || a.x > width-1 || a.y < 1 || a.y > height-1){
+      return true;
+    }
+    bcp = a;
+    yn = !!b;
+    if(snake.some(checkBod)){
+      return true;
+    }
+  }
+
+  var bcp = {x:0,y:0}; //bod check point
+  function checkBod(snek, i){
+    if(bcp.x == snek.x && bcp.y == snek.y && i != 0){
+      if(!yn || (yn && i != snake.length-1)){
+        return true;
+      }
+    }
+  }
+
+  window.addEventListener('keydown', keypress);
+
+  function keypress(e) {
+    var newdir = {x:0,y:0};
+    if(qeue.length < qlen){
+      switch(e.code){
+        case 'KeyD' :
+        case 'ArrowRight' :
+          newdir = {x:1,y:0};
+          break;
+        case 'KeyW' :
+        case 'ArrowUp':
+          newdir = {x:0,y:-1};
+          break;
+        case 'KeyA' :
+        case 'ArrowLeft':
+          newdir = {x:-1,y:0};
+          break;
+        case 'KeyS' :
+        case 'ArrowDown':
+          newdir = {x:0,y:1};
+          break;
+      }
+
+      if(qeue.length > 0){
+        var test = qeue[qeue.length-1];
+        if(!(test.x == newdir.x || test.y == newdir.y)){
+          qeue.push(newdir);
+        }
+      }else{
+        if(!(dir.x == newdir.x || dir.y == newdir.y)){
+          qeue.push(newdir);
+        }
+      }
+    };
+  }
+
+  if(typeof(navigator.getGamepads()[0]) != 'undefined'){
+    setInterval(gamepad, 1);
+  }
+
+  function gamepad(){
+    var pad = navigator.getGamepads()[0];
+      switch (true){
+        case pad.buttons[12].pressed :
+          keypress({code: 'ArrowUp'});
+          break;
+        case pad.buttons[13].pressed :
+          keypress({code: 'ArrowDown'});
+          break;
+        case pad.buttons[14].pressed :
+          keypress({code: 'ArrowLeft'});
+          break;
+        case pad.buttons[15].pressed :
+          keypress({code: 'ArrowRight'});
+          break;
+        case pad.buttons[9].pressed :
+          location.reload();
+          break;
+      }
+  }
+</script>
+</body>
+</html>
