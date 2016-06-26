@@ -89,15 +89,39 @@ span{
 
 .bx-viewport{
   border: none !important;
+  box-shadow: none !important;
+  background-color: @background !important;
 }
 
 .bxslider{
   top: -16px;
   li{
-    max-height: 600px;
+    height: 600px;
+    width: 800px;
+    div{
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      background-color: @background;
+      img{
+        max-height: 600px;
+      }
+    }
   }
 }
 
 .bx-wrapper{
   margin-bottom: 0;
+  box-shadow: none !important;
+  background-color: @background !important;
+}
+
+#website2{
+  p{
+    // display: inline;
+  }
+  form{
+    display: inline;
+  }
 }

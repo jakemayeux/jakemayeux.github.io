@@ -73,13 +73,31 @@ span {
 }
 .bx-viewport {
   border: none !important;
+  box-shadow: none !important;
+  background-color: #292929 !important;
 }
 .bxslider {
   top: -16px;
 }
 .bxslider li {
+  height: 600px;
+  width: 800px;
+}
+.bxslider li div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #292929;
+}
+.bxslider li div img {
   max-height: 600px;
 }
 .bx-wrapper {
   margin-bottom: 0;
+  box-shadow: none !important;
+  background-color: #292929 !important;
+}
+#website2 form {
+  display: inline;
 }
