@@ -138,23 +138,28 @@ function drawDemo(cvsID){
         //grp.transform.rotate(0,0,1,(mY-mouseY));
         //frp.transform.rotate(0,0,1,(mY-mouseY));
         g.renderFrame(frp);
-      }else{
+        alreadyRendered = false;
+      }else if(!alreadyRendered){
         g.renderFrame(grp);
+        alreadyRendered = true;
       }
       mX = mouseX;
     }
   }
 }
+
+var alreadyRendered = false;
+
 var mouseX = mouseY = 0;
 var mX = mY = 0;
 var mouseDown = false;
-$(window).mousemove(function(e){
+$('#canvasID').mousemove(function(e){
   mouseX = e.screenX;
   mouseY = e.screenY;
 });
-$(window).mousedown(function(e){
+$('#canvasID').mousedown(function(e){
   mouseDown = true;
 });
-$(window).mouseup(function(e){
+$('#canvasID').mouseup(function(e){
   mouseDown = false;
 });
