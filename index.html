@@ -12,8 +12,56 @@
 			<hr>
 			<h1>Machine Learning: An Introduction and Guide</h1>
 			<h3>March 26 2017</h3>
+
+			<!--Intro-->
 			<p>Hi, I'm Jake Mayeux. I am a student at Northeastern university studying Computer Science and Engineering. This article is meant to serve as a a guide and introduction for those interested in Machine Learning. I will be using Python to show how some things work which means I assume you have basic understanding of how to use and run Python code.</p>
-			<p>asdf</p>
+
+			<!--Contents-->
+			<ul>
+				<li><h4>Contents</h4></li>
+				<a href=#whatisml><li>What is Machine Learning?</li></a>
+				<a href=#mlinda><li>Machine Learning in Data Analysis</li></a>
+				<a href=#bib><li>Bibliography</li></a>
+			</ul>
+			
+			<!--What is Machine Learning?-->
+			<a name="whatisml"><h2>What is Machine Learning?</h2></a>
+			<p>You have most likely heard of machine learning by now but you may not know what it really is. Machine learning is a term used in Computer Science to describe a computer program or algorithm that has the ability to learn. Machine learning has many different applications from artificial intelligence to big data analysis. Deep learning, a type of machine learning, is now even used to power Google's search engine<sup>1</sup>.</p>
+			<p>There are many different types of machine learning all with different pros and cons. In this article I am going to cover how to use machine learning for data analysis and for artificial intelligence. I will provide code samples along the way so make sure you have Python 2.7 installed if you would like to follow along. If you want to work with Python in an isolated environment to ensure you do not have conflicting packages see <a href=http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/>virtual environments</a>. I will try to make this as easy to follow for those without knowledge of programming.</p>
+			
+			<!--Machine Learning in Data Analysis-->
+			<a name="mlinda"><h2>Machine Learning in Data Analysis</h2></a>
+			<p>As technology becomes insreasingly integrated with our everyday life, telemetry finds its way into more and more of the software we use everyday. Companies like Microsoft, Amazon and Google record massive amounts of data through tracking cookies planted on websites and usage data reported from their software. To uncover valuable trends and information hidden within these large data sets, data researchers use machine learning algorithms to analyze and make sense of the data.</p>
+			<p>I am going to show you how you can use machine learning with Python to analyze data and find trends using the same algorithms used by Big Data.</p>
+			<p>To begin lets setup our work environment. Make a new directory for the project. If you are going to setup a virtual environment you should do so now. Run the following command to install the dependencies needed for this project.</p>
+			<p class=code>$ pip install scipy numpy matplotlib pandas sklearn</p>
+			<p>Run the following Python code and compare it to the output below.</p>
+			<p class=code>
+			import sys<br>
+			print('Python: {}'.format(sys.version))<br>
+			import scipy<br>
+			print('scipy: {}'.format(scipy.__version__))<br>
+			import numpy<br>
+			print('numpy: {}'.format(numpy.__version__))<br>
+			import matplotlib<br>
+			print('matplotlib: {}'.format(matplotlib.__version__))<br>
+			import pandas<br>
+			print('pandas: {}'.format(pandas.__version__))<br>
+			import sklearn<br>
+			print('sklearn: {}'.format(sklearn.__version__))
+			</p>
+			<p>This is my output of the code above. If you encounter any discrepancies check the versions of your libraries against the ones presented below. There may be changes in the code since the time of writing this article.</p>
+			<p class=code>
+			Python: 2.7.13 (default, Dec 18 2016, 07:03:39)<br>
+			[GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]<br>
+			scipy: 0.18.1<br>
+			numpy: 1.11.2<br>
+			matplotlib: 1.5.3<br>
+			pandas: 0.19.1<br>
+			sklearn: 0.18.1
+			</p>
+			<p>We will be working with the iris flowers dataset. This dataset is often used as a hello world example for machine learning. You can find the dataset <a href='https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'>here</a></p>
+			
 		</div>
 	</body>
 </html>
