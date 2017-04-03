@@ -35,33 +35,29 @@
 			<p>I am going to show you how you can use machine learning with Python to analyze data and find trends using the same algorithms used by Big Data.</p>
 			<p>To begin lets setup our work environment. Make a new directory for the project. If you are going to setup a virtual environment you should do so now. Run the following command to install the dependencies needed for this project.</p>
 			<p class=code>$ pip install scipy numpy matplotlib pandas sklearn</p>
-			<p>Run the following Python code and compare it to the output below.</p>
+			<p>Import all the needed libraries with the following code</p>
 			<p class=code>
-			import sys<br>
-			print('Python: {}'.format(sys.version))<br>
-			import scipy<br>
-			print('scipy: {}'.format(scipy.__version__))<br>
-			import numpy<br>
-			print('numpy: {}'.format(numpy.__version__))<br>
-			import matplotlib<br>
-			print('matplotlib: {}'.format(matplotlib.__version__))<br>
 			import pandas<br>
-			print('pandas: {}'.format(pandas.__version__))<br>
-			import sklearn<br>
-			print('sklearn: {}'.format(sklearn.__version__))
+			from pandas.tools.plotting import scatter_matrix<br>
+			import matplotlib.pyplot as plt<br>
+			from sklearn import model_selection<br>
+			from sklearn.metrics import classification_report<br>
+			from sklearn.metrics import confusion_matrix<br>
+			from sklearn.metrics import accuracy_score<br>
+			from sklearn.linear_model import LogisticRegression<br>
+			from sklearn.tree import DecisionTreeClassifier<br>
+			from sklearn.neighbors import KNeighborsClassifier<br>
+			from sklearn.discriminant_analysis import LinearDiscriminantAnalysis<br>
+			from sklearn.naive_bayes import GaussianNB<br>
+			from sklearn.svm import SVC
 			</p>
-			<p>This is my output of the code above. If you encounter any discrepancies check the versions of your libraries against the ones presented below. There may be changes in the code since the time of writing this article.</p>
+			<p>We will be working with the iris flowers dataset. This dataset is often used as a hello world example for machine learning. You can find the dataset <a href='https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'>here</a>. Use the following code to load the data into a labeled dataset.</p>
 			<p class=code>
-			Python: 2.7.13 (default, Dec 18 2016, 07:03:39)<br>
-			[GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]<br>
-			scipy: 0.18.1<br>
-			numpy: 1.11.2<br>
-			matplotlib: 1.5.3<br>
-			pandas: 0.19.1<br>
-			sklearn: 0.18.1
+			url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"<br>
+			names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']<br>
+			dataset = pandas.read_csv(url, names=names)
 			</p>
-			<p>We will be working with the iris flowers dataset. This dataset is often used as a hello world example for machine learning. You can find the dataset <a href='https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'>here</a></p>
-			
+			<p>Now that we have loaded the data we are ready to run it through the learning algorithms. We will use 6 different algorithms and assess their accuracy to choose the best model for our data. The following code creates an array with 6 common algorithms. We will iterate through the array and assess each model based on accuracy which is set by our scoring variable.</p>
 		</div>
 	</body>
 </html>
