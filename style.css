@@ -28,6 +28,10 @@ ul{
 	padding: 0;
 }
 
+ol{
+	margin-left 24px;
+	padding-left: 24px;
+}
 hr{
 	border: none;
 	border-bottom: 1px solid #aaa;
@@ -40,3 +44,4 @@ hr{
 	border-radius: 2px;
 	background-color: #f0f0f0;
 }
+

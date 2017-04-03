@@ -6,7 +6,8 @@
 	<body>
 		<div class=nav>
 			<h1>Jake Mayeux</h1>
-			<a>About</a>
+			<a href=https://github.com/jakemayeux/>github</a>
+			<!--<a>About</a>-->
 		</div>
 		<div class=content>
 			<hr>
@@ -21,6 +22,7 @@
 				<li><h4>Contents</h4></li>
 				<a href=#whatisml><li>What is Machine Learning?</li></a>
 				<a href=#mlinda><li>Machine Learning in Data Analysis</li></a>
+				<a href=#mlai><li>Machine Learning for Artificial Intelligence</li></a>
 				<a href=#bib><li>Bibliography</li></a>
 			</ul>
 			
@@ -51,13 +53,72 @@
 			from sklearn.naive_bayes import GaussianNB<br>
 			from sklearn.svm import SVC
 			</p>
+
 			<p>We will be working with the iris flowers dataset. This dataset is often used as a hello world example for machine learning. You can find the dataset <a href='https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'>here</a>. Use the following code to load the data into a labeled dataset.</p>
 			<p class=code>
 			url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"<br>
 			names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']<br>
 			dataset = pandas.read_csv(url, names=names)
 			</p>
-			<p>Now that we have loaded the data we are ready to run it through the learning algorithms. We will use 6 different algorithms and assess their accuracy to choose the best model for our data. The following code creates an array with 6 common algorithms. We will iterate through the array and assess each model based on accuracy which is set by our scoring variable.</p>
+			
+			<p>Before feedind the data into our model we will split it into two arrays. The first array will be used to train the model and will consist of the first 80% of the iris data set. The other 20% of the data will be used to test the model. After training the model with the first 80%, we will have it generate data and see how close it is to the other 20%. The following code splits the data like so. We set the scoring variable to accuracy which determines how we will determine the best algorirthm. The seed is used for the random number generator and is there just to make sure that we both get the same results.</p>
+			<p class=code>
+			# Split-out validation dataset
+			array = dataset.values
+			X = array[:,0:4]
+			Y = array[:,4]
+			validation_size = 0.20
+			seed = 72
+			scoring = 'accuracy'
+			X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+			</p>
+			
+			<p>Now that we have loaded the data we are ready to run it through the learning algorithms. We will use 6 different algorithms and assess their accuracy to choose the best model for our data. After running the following code you should see it output the score or fitness for each algorithm. You should use this value to choose the best algorithm for your data.</p>
+			<p class=code>
+			models = []<br>
+			models.append(('LR', LogisticRegression()))<br>
+			models.append(('LDA', LinearDiscriminantAnalysis()))<br>
+			models.append(('KNN', KNeighborsClassifier()))<br>
+			models.append(('CART', DecisionTreeClassifier()))<br>
+			models.append(('NB', GaussianNB()))<br>
+			models.append(('SVM', SVC()))<br>
+			results = []<br>
+			names = []<br>
+			for name, model in models:<br>
+				kfold = model_selection.KFold(n_splits=10, random_state=seed)<br>
+				cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)<br>
+				results.append(cv_results)<br>
+				names.append(name)<br>
+				msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())<br>
+				print(msg)
+			</p>
+
+
+			<p>After choosing which algorithm you want to go with, you can use it to make predictions for your data. In this example I chose the KNN algorirthm to predict possible values that could be included in the data set.</p>
+			<p class=code>
+			knn = KNeighborsClassifier()<br>
+			knn.fit(X_train, Y_train)<br>
+			predictions = knn.predict(X_validation)
+			</p>
+
+			<p>Congratulations! You are now able to use machine learning in real world applications. This was a very basic and minimal tutorial to machine learning for data analysis but hopefully you have a better understanding of how to use machine learning algorithms.</p>
+
+			<!--Machine Learning for Artificial Intelligence-->
+			<a name="mlai"><h2>Machine Learning for Artificial Intelligence</h2></a>
+			<p></p>
+
+			
+			<!--Bibliography-->
+			<a name="bib"><h2>Bibliography</h2></a>
+			<ol>
+				<li>Metz, Cade. "AI Is About to Learn More Like Humans-with a Little Uncertainty." Wired. Conde Nast, 03 Feb. 2017. Web. 22 Mar. 2017. </li>
+				<li>Brownlee, Jason. "Your First Machine Learning Project in Python Step-By-Step." Machine Learning Mastery. N.p., 13 Mar. 2017. Web. 21 Mar. 2017. </i>
+				<li>Moynihan, Tim. "Ex-Googlers Build a Neural Network to Protect Your Heart." Wired. Conde Nast, 20 Mar. 2017. Web. 21 Mar. 2017. </li>
+				<li>Karpathy, Andrej. "Deep Reinforcement Learning: Pong from Pixels." Deep Reinforcement Learning: Pong from Pixels. N.p., 31 May 2016. Web. 22 Mar. 2017.</li>
+				<li>"Machine Learning." Wikipedia. Wikimedia Foundation, 22 Mar. 2017. Web. 22 Mar. 2017.</li>
+				<li>Z., Zygmunt. "FastML." Bayesian Machine Learning - FastML. N.p., 28 Mar. 2016. Web. 22 Mar. 2017.</li>
+				<li>Metz, Cade. "AI Is Transforming Google Search. The Rest of the Web Is Next." Wired. Conde Nast, 04 Feb. 2016. Web. 22 Mar. 2017.</li>
+			</ol>
 		</div>
 	</body>
 </html>
