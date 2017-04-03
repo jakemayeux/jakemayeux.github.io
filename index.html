@@ -38,9 +38,9 @@
 
 			<p>The first step here is to create the artificial neural network. Here is a sample of Python code that shows how the neural network can be coded. W1 and W2 are two matrices that contain random numbers and x is a matrix that holds the input information, in this case it would be the matrix of pixels. The following code is courtesy of Andrej.</p>
 			<p class=code>
-			h = np.dot(W1, x) # compute hidden layer neuron activations
-			h[h<0] = 0 # ReLU nonlinearity: threshold at zero
-			logp = np.dot(W2, h) # compute log probability of going up
+			h = np.dot(W1, x) # compute hidden layer neuron activations <br>
+			h[h<0] = 0 # ReLU nonlinearity: threshold at zero <br>
+			logp = np.dot(W2, h) # compute log probability of going up <br>
 			p = 1.0 / (1.0 + np.exp(-logp)) # sigmoid function (gives probability of going up)
 			</p>
 
